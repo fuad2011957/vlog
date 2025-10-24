@@ -4,6 +4,7 @@
 import { prisma } from '@/shared/lib/prisma-client'
 
 interface IUser {
+   name: string
    fullName: string
    email: string
    password: string
