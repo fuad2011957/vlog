@@ -1,7 +1,10 @@
 'use server'
 
 // import {User}  from '@/generated/prisma'
-import { prisma } from '@/shared/lib/prisma-client'
+
+import { PrismaClient } from '@prisma/client'
+export const prisma = new PrismaClient()
+
 
 
 interface IUser {
