@@ -59,7 +59,7 @@ export async function getUserByEmail( email: string ) {
 export async function getUserById( id: string ) {
    try {
       const user = await prisma.user.findUnique( {
-         where: { id },
+         where: { id: Number(id) },
       } )
       return { success: true, user, message: 'Пользователь успешно получен' }
    } catch ( error ) {
