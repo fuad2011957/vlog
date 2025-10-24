@@ -1,8 +1,6 @@
-'use server'
-
 import { PrismaClient } from '@prisma/client'
 
-export const prisma = new PrismaClient()
+const prisma = new PrismaClient() // создаём объект локально, не экспортируем
 
 interface IUser {
   fullName: string
@@ -11,7 +9,6 @@ interface IUser {
   avatar?: string
 }
 
-// Создание пользователя
 export async function createUser(user: IUser) {
   try {
     const existedUser = await prisma.user.findUnique({
@@ -24,7 +21,7 @@ export async function createUser(user: IUser) {
 
     const newUser = await prisma.user.create({
       data: {
-        name: user.fullName, // map fullName -> name
+        name: user.fullName,
         email: user.email,
         password: user.password,
         avatar: user.avatar ?? null,
@@ -37,31 +34,24 @@ export async function createUser(user: IUser) {
   }
 }
 
-// Получение пользователя по email
 export async function getUserByEmail(email: string) {
   try {
-    const user = await prisma.user.findUnique({
-      where: { email },
-    })
+    const user = await prisma.user.findUnique({ where: { email } })
     return { success: true, user, message: 'Пользователь успешно получен' }
   } catch (error: any) {
     return { success: false, message: 'Не удалось получить пользователя', error: error.message }
   }
 }
 
-// Получение пользователя по id
 export async function getUserById(id: string) {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: Number(id) },
-    })
+    const user = await prisma.user.findUnique({ where: { id: Number(id) } })
     return { success: true, user, message: 'Пользователь успешно получен' }
   } catch (error: any) {
     return { success: false, message: 'Не удалось получить пользователя', error: error.message }
   }
 }
 
-// Получение всех пользователей
 export async function getAllUsers() {
   try {
     const users = await prisma.user.findMany()
@@ -70,4 +60,3 @@ export async function getAllUsers() {
     return { success: false, message: 'Не удалось получить пользователей', error: error.message }
   }
 }
-
