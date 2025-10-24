@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Header from "../header/header";
 import ResultBox from "@/shared/ui/ResultBox";
 
+
 export function SearchResultPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
